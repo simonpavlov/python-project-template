@@ -101,8 +101,12 @@ from my_package.module import SomeClass
 
 ### Documentation
 
-- Every module starts with a docstring describing its purpose
-- Every public function/class has a Google-style docstring with Args/Returns sections:
+Prefer self-documenting code: clear names + type annotations over redundant docstrings.
+Docstrings should explain **why**, not restate **what** the code already says.
+
+- Every module has a docstring describing its purpose
+- Add Google-style docstrings (Args/Returns) only when the function has **non-obvious
+  behavior**, complex parameters, or is part of a **public API surface**:
 
 ```python
 def process(data: str, *, verbose: bool = False) -> dict[str, int]:
@@ -117,13 +121,17 @@ def process(data: str, *, verbose: bool = False) -> dict[str, int]:
     """
 ```
 
-- Private helper functions have a single-line docstring
+- **Skip docstrings** on simple, well-named functions where the signature tells the
+  whole story — a redundant docstring adds noise and rots over time
+- Private helpers: docstring only if the logic is non-obvious
 
 ### Test Structure
 
 - One test file per source module (`test_module.py` <-> `module.py`)
 - Group tests in classes by function under test (`TestFunctionName`)
-- Each test method has a docstring explaining what it tests
+- Test names should be descriptive enough to serve as documentation
+  (`test_returns_none_for_empty_input`); add a docstring only when the test
+  setup or assertion needs explanation beyond what the name conveys
 - Shared fixtures live in `tests/conftest.py`
 - Test data fixtures in `tests/fixtures/`
 - Coverage minimum: 90%

@@ -55,20 +55,21 @@ operations = {
     "multiply": multiply_function,
 }
 result = operations.get(operation, default_function)()
+```
 
-## 3. Modern Python Features (Python 3.9+)
+## 4. Modern Python Features (3.10+)
 
 **Python 3.12+ Generics:**
 ```python
-# Modern syntax - replaces old TypeVar approach
-def func[T]()-> T:
+# Modern syntax — replaces old TypeVar approach
+def func[T]() -> T:
     return T()
 
 # Bounded types
 class Container[T: Mapping]:
     pass
 
-# Constrained types  
+# Constrained types
 class Calculator[T: (int, float)]:
     pass
 ```
@@ -109,19 +110,21 @@ class Point:
     # Automatically generates __init__, __repr__, __eq__
 ```
 
-**Type Annotations:**
+**Type Annotations (modern style):**
 ```python
-from typing import List, Dict, Optional
-
-def process_items(items: List[str]) -> Dict[str, int]:
+# Use built-in generics — NOT typing.Dict, typing.List, typing.Optional
+def process_items(items: list[str]) -> dict[str, int]:
     return {item: len(item) for item in items}
+
+# Use X | None — NOT Optional[X]
+def find_user(user_id: int) -> User | None:
+    ...
 ```
 
 **Pathlib over os.path:**
 ```python
 from pathlib import Path
 
-# Modern approach
 current_file = Path(__file__)
 parent_dir = current_file.parent
 config_path = parent_dir / "config" / "settings.json"
@@ -134,12 +137,12 @@ import logging
 logger = logging.getLogger(__name__)
 logger.info("Processing started")
 logger.error("Failed to process item", exc_info=True)
+```
 
 ## 5. Defensive & Pythonic Programming
 
 **EAFP over LBYL:** Use try/except instead of excessive if checks
 ```python
-# Good: Pythonic approach
 try:
     value = my_dict[key]
 except KeyError:
@@ -148,7 +151,6 @@ except KeyError:
 
 **Dependency Injection:** Pass objects as arguments instead of creating inside functions
 ```python
-# Good: Easy to test
 def process_data(data: str, validator: Validator) -> bool:
     return validator.validate(data)
 ```
@@ -161,7 +163,7 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class Config:
     name: str
-    
+
 MAX_SIZE: Final = 100
 ```
 
@@ -173,6 +175,7 @@ try:
 except ValueError as e:
     e.add_note("Additional context about the error")
     raise
+```
 
 ## 6. Code Quality & Testing
 
@@ -195,14 +198,10 @@ except ValueError as e:
 - Variable scope issues in loops/lambdas
 - Broad exception catching (catch specific exceptions)
 
-## 6. Core Principles Summary
+## 7. Core Principles Summary
 
-1. **Simplicity First** - Choose the simplest solution that works
-2. **Readability Matters** - Code should be self-documenting  
-3. **Test Thoroughly** - Comprehensive testing prevents regressions
-4. **Stay Current** - Adopt modern Python features for cleaner code
-5. **Design Patterns** - Use patterns strategically, not as golden hammers
-
----
-
-**Would you like me to take a specific piece of your code and "Arjan-ify" it by applying these refactoring principles?**
+1. **Simplicity First** — Choose the simplest solution that works
+2. **Readability Matters** — Code should be self-documenting
+3. **Test Thoroughly** — Comprehensive testing prevents regressions
+4. **Stay Current** — Adopt modern Python features for cleaner code
+5. **Design Patterns** — Use patterns strategically, not as golden hammers
