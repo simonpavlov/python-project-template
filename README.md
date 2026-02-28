@@ -16,11 +16,18 @@ make format        # auto-fix lint and formatting
 make build         # build package
 ```
 
-## Rename Package
+## Create a New Project
 
 ```bash
-mv src/my_package src/your_package
+git clone git@github.com:simonpavlov/python-project-template.git my-cool-project
+cd my-cool-project
+./init_project.sh my_cool_project
 ```
 
-Then find-and-replace `my_package` -> `your_package` and `my-package` -> `your-package`
-in `pyproject.toml`, `AGENTS.md`, and `tests/`.
+The script will:
+
+- Rename `src/my_package/` to `src/my_cool_project/`
+- Replace all template names across project files
+- Reset git history with a clean initial commit
+- Install dependencies and run the full test suite
+- Self-delete after successful initialization
